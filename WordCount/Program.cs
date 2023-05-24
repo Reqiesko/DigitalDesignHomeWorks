@@ -13,30 +13,32 @@ namespace WordCount
             Console.WriteLine("Путь к файлу с результатом");
             var outputFilePath = Console.ReadLine();
 
-            string text = File.ReadAllText(inputFilePath!);
+            var text = File.ReadAllText(inputFilePath!);
 
-            var wordWorker = new WordWorker();
+            var methodInfo = typeof(WordWorker).GetMethod("GetWordsCount", BindingFlags.Static | BindingFlags.NonPublic);
 
-            var methodInfo = typeof(WordWorker).GetMethod("GetWordsCount",
-                BindingFlags.Instance |
-                BindingFlags.Public |
-                BindingFlags.NonPublic);
+            var res = new object();
 
-            var wordCounts = (Dictionary<string, int>)methodInfo?.Invoke(wordWorker, parameters: new object?[] { text })!;
+            Parallel.Invoke(() => WordWorker.GetWordsCountParallel(text), () => res = methodInfo?.Invoke(null, parameters: new object?[] { text }));
+
+            var wordCounts = (Dictionary<string, int>)res;
 
             // Сортируем словарь по убыванию количества употреблений слов
-            var sortedWordCounts = wordCounts.OrderByDescending(x => x.Value);
+            var sortedWordCounts = wordCounts.OrderByDescending(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
 
-            // Записываем результаты в выходной файл
-            using (var writer = new StreamWriter(outputFilePath!))
-            {
-                foreach (var wordCount in sortedWordCounts)
-                {
-                    writer.WriteLine("{0}\t{1}", wordCount.Key, wordCount.Value);
-                }
-            }
+            PrintRateToFile(sortedWordCounts, outputFilePath!);
 
             Console.WriteLine("Done.");
+        }
+
+        private static void PrintRateToFile(Dictionary<string, int> sortedWordCounts, string outputFilePath)
+        {
+            // Записываем результаты в выходной файл
+            using var writer = new StreamWriter(outputFilePath);
+            foreach (var wordCount in sortedWordCounts)
+            {
+                writer.WriteLine("{0}\t{1}", wordCount.Key, wordCount.Value);
+            }
         }
     }
 }
