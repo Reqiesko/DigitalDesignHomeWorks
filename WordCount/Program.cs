@@ -1,16 +1,19 @@
 ﻿using System.Reflection;
+using System.Reflection.Emit;
 using DigitalDesignDll;
 
 namespace WordCount
 {
-    
-
     class Program
     {
-        static void Main()
+        private static void Main()
         {
+            Console.WriteLine("Путь к исходному файлу");
             var inputFilePath = Console.ReadLine();
+            Console.WriteLine("Путь к файлу с результатом");
             var outputFilePath = Console.ReadLine();
+
+            string text = File.ReadAllText(inputFilePath!);
 
             var wordWorker = new WordWorker();
 
@@ -19,9 +22,7 @@ namespace WordCount
                 BindingFlags.Public |
                 BindingFlags.NonPublic);
 
-            var answerInvoke = methodInfo?.Invoke(wordWorker, parameters: new object?[] { inputFilePath });
-
-            var wordCounts = (Dictionary<string, int>)answerInvoke!;
+            var wordCounts = (Dictionary<string, int>)methodInfo?.Invoke(wordWorker, parameters: new object?[] { text })!;
 
             // Сортируем словарь по убыванию количества употреблений слов
             var sortedWordCounts = wordCounts.OrderByDescending(x => x.Value);
