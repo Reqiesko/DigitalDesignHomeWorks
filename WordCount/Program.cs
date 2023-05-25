@@ -19,7 +19,21 @@ namespace WordCount
 
             var res = new object();
 
-            Parallel.Invoke(() => WordWorker.GetWordsCountParallel(text), () => res = methodInfo?.Invoke(null, parameters: new object?[] { text }));
+            Parallel.Invoke(
+                () =>
+                {
+                    res = WordWorker.GetWordsCountParallel(text);
+                },
+
+                () =>
+                {
+                    methodInfo?.Invoke(null, parameters: new object?[] { text });
+                },
+
+                () =>
+                {
+                    WordWorker.GetWordsCountWhithThread(text);
+                });
 
             var wordCounts = (Dictionary<string, int>)res;
 
