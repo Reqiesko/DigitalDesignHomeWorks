@@ -5,16 +5,38 @@ namespace DigitalDesignDll
 {
     public static class WordWorker
     {
-        private static readonly char[] Separators = { ' ', '\t', ',', '.', ':', ';', '!', '?', '(', ')', '[', ']', '{', '}', '\n', '-', '–' };
+        private static readonly char[] Separators = { ' ', '\t', ',', '.', ':', ';', '!', '?', '(', ')', '[', ']', '{', '}', '-', '–', '\n' };
 
-        public static Dictionary<string, int> GetWordsCountWhithTask(string text)
+        public static Dictionary<string, int> GetWordsCountWithThreadPool(string text)
         {
-            var time = Stopwatch.StartNew();
+            var wordCounts = new ConcurrentDictionary<string, int>();
+
+            string[] words = text.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
+
+            var countdownEvent = new CountdownEvent(words.Length);
+
+            foreach (string word in words)
+            {
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    string lowercaseWord = word.ToLower();
+                    wordCounts.AddOrUpdate(lowercaseWord, 1, (_, count) => count + 1);
+                    countdownEvent.Signal();
+                });
+            }
+
+            countdownEvent.Wait();
+
+            return wordCounts.ToDictionary(pair => pair.Key, pair => pair.Value);
+        }
+
+        public static Dictionary<string, int> GetWordsCountWithThreads(string text)
+        {
             // Создаём словарь для подсчёта уникальных слов
             var wordCounts = new ConcurrentDictionary<string, int>();
 
             // Добавляем слова в словарь или увеличиваем счётчик, если они уже есть в словаре
-            var task = Task.Run(() =>
+            var thread = new Thread(() =>
             {
                 var words = text.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
 
@@ -25,23 +47,18 @@ namespace DigitalDesignDll
                 }
             });
 
-            task.Wait();
-
-            time.Stop();
-
-            Console.WriteLine("Method with Thread:     " + time.ElapsedMilliseconds);
+            thread.Start();
+            thread.Join();
 
             return wordCounts.ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 
         public static Dictionary<string, int> GetWordsCountParallel(string text)
         {
-            var time = Stopwatch.StartNew();
             // Создаём словарь для подсчёта уникальных слов
             ConcurrentDictionary<string, int> wordCounts = new ConcurrentDictionary<string, int>();
 
             string[] words = text.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
-            
             // Добавляем слова в словарь или увеличиваем счётчик, если они уже есть в словаре
             Parallel.ForEach(words, word =>
             {
@@ -49,17 +66,12 @@ namespace DigitalDesignDll
                 wordCounts.AddOrUpdate(lowercaseWord, 1, (_, count) => count + 1);
                 
             });
-
-            time.Stop();
-
-            Console.WriteLine("Method with Parallel:     " + time.ElapsedMilliseconds);
-
+            
             return wordCounts.ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 
         private static Dictionary<string, int> GetWordsCount(string text)
         {
-            var time = Stopwatch.StartNew();
             // Создаём словарь для подсчёта уникальных слов
             Dictionary<string, int> wordCounts = new Dictionary<string, int>();
 
@@ -78,9 +90,6 @@ namespace DigitalDesignDll
                     wordCounts[lowercaseWord]++;
                 }
             }
-            time.Stop();
-
-            Console.WriteLine("Common method:     " + time.ElapsedMilliseconds);
 
             return wordCounts;
         }

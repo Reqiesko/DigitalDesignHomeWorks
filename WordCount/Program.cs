@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Reflection.Emit;
 using DigitalDesignDll;
 
@@ -19,21 +20,27 @@ namespace WordCount
 
             var res = new object();
 
-            Parallel.Invoke(
-                () =>
-                {
-                    WordWorker.GetWordsCountParallel(text);
-                },
+            var time = new Stopwatch();
 
-                () =>
-                {
-                    methodInfo?.Invoke(null, parameters: new object?[] { text });
-                },
+            time.Start();
+            methodInfo?.Invoke(null, parameters: new object?[] { text });
+            time.Stop();
+            Console.WriteLine("Common method:     " + time.ElapsedMilliseconds);
 
-                () =>
-                {
-                    res = WordWorker.GetWordsCountWhithTask(text);
-                });
+            time.Restart();
+            WordWorker.GetWordsCountParallel(text);
+            time.Stop();
+            Console.WriteLine("Method with Parallel:     " + time.ElapsedMilliseconds);
+
+            time.Restart();
+            res = WordWorker.GetWordsCountWithThread(text);
+            time.Stop();
+            Console.WriteLine("Method with Thread:     " + time.ElapsedMilliseconds);
+
+            time.Restart();
+            res = WordWorker.GetWordsCountWithThreadPool(text);
+            time.Stop();
+            Console.WriteLine("Method with ThreadPool:     " + time.ElapsedMilliseconds);
 
             var wordCounts = (Dictionary<string, int>)res;
 
@@ -43,6 +50,7 @@ namespace WordCount
             PrintRateToFile(sortedWordCounts, outputFilePath!);
 
             Console.WriteLine("Done.");
+            Console.ReadLine();
         }
 
         private static void PrintRateToFile(Dictionary<string, int> sortedWordCounts, string outputFilePath)
