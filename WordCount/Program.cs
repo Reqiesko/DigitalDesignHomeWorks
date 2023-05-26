@@ -22,7 +22,7 @@ namespace WordCount
             Parallel.Invoke(
                 () =>
                 {
-                    res = WordWorker.GetWordsCountParallel(text);
+                    WordWorker.GetWordsCountParallel(text);
                 },
 
                 () =>
@@ -32,7 +32,7 @@ namespace WordCount
 
                 () =>
                 {
-                    WordWorker.GetWordsCountWhithThread(text);
+                    res = WordWorker.GetWordsCountWhithTask(text);
                 });
 
             var wordCounts = (Dictionary<string, int>)res;

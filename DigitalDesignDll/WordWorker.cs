@@ -7,35 +7,25 @@ namespace DigitalDesignDll
     {
         private static readonly char[] Separators = { ' ', '\t', ',', '.', ':', ';', '!', '?', '(', ')', '[', ']', '{', '}', '\n', '-', '–' };
 
-        public static Dictionary<string, int> GetWordsCountWhithThread(string text)
+        public static Dictionary<string, int> GetWordsCountWhithTask(string text)
         {
             var time = Stopwatch.StartNew();
             // Создаём словарь для подсчёта уникальных слов
             var wordCounts = new ConcurrentDictionary<string, int>();
 
-            string[] words = new string[] { };
             // Добавляем слова в словарь или увеличиваем счётчик, если они уже есть в словаре
-            var thread = new Thread((() =>
+            var task = Task.Run(() =>
             {
-                words = text.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
-           
+                var words = text.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
+
                 foreach (string word in words)
                 {
                     string lowercaseWord = word.ToLower();
-                    if (!wordCounts.ContainsKey(lowercaseWord))
-                    {
-                        wordCounts[lowercaseWord] = 1;
-                    }
-                    else
-                    {
-                        wordCounts[lowercaseWord]++;
-                    }
+                    wordCounts.AddOrUpdate(lowercaseWord, 1, (_, count) => count + 1);
                 }
-            }));
+            });
 
-            thread.Start();
-
-            thread.Join();
+            task.Wait();
 
             time.Stop();
 
@@ -51,23 +41,13 @@ namespace DigitalDesignDll
             ConcurrentDictionary<string, int> wordCounts = new ConcurrentDictionary<string, int>();
 
             string[] words = text.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
-
-            var lockObject = new object();
+            
             // Добавляем слова в словарь или увеличиваем счётчик, если они уже есть в словаре
             Parallel.ForEach(words, word =>
             {
                 string lowercaseWord = word.ToLower();
-                lock (lockObject)
-                {
-                    if (!wordCounts.ContainsKey(lowercaseWord))
-                    {
-                        wordCounts[lowercaseWord] = 1;
-                    }
-                    else
-                    {
-                        wordCounts[lowercaseWord]++;
-                    }
-                }
+                wordCounts.AddOrUpdate(lowercaseWord, 1, (_, count) => count + 1);
+                
             });
 
             time.Stop();
