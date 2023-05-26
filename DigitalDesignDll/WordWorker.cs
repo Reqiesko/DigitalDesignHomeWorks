@@ -7,6 +7,11 @@ namespace DigitalDesignDll
     {
         private static readonly char[] Separators = { ' ', '\t', ',', '.', ':', ';', '!', '?', '(', ')', '[', ']', '{', '}', '-', '–', '\n' };
 
+        public static Dictionary<string, int> SortDictionary(Dictionary<string, int> sortedWordCounts)
+        {
+            return sortedWordCounts.OrderByDescending(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+        }
+
         public static Dictionary<string, int> GetWordsCountWithThreadPool(string text)
         {
             var wordCounts = new ConcurrentDictionary<string, int>();

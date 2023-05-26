@@ -44,10 +44,7 @@ namespace WordCount
 
             var wordCounts = (Dictionary<string, int>)res;
 
-            // Сортируем словарь по убыванию количества употреблений слов
-            var sortedWordCounts = wordCounts.OrderByDescending(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
-
-            PrintRateToFile(sortedWordCounts, outputFilePath!);
+            PrintRateToFile(WordWorker.SortDictionary(wordCounts), outputFilePath!);
 
             Console.WriteLine("Done.");
             Console.ReadLine();

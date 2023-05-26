@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalDesignDll", "Digital
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordCount", "WordCount\WordCount.csproj", "{48FF20AA-AC76-46D6-8622-E371F9A74D63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiDigitalDesign", "WebApiDigitalDesign\WebApiDigitalDesign.csproj", "{3DE70A8A-8047-4A06-90CA-E8B287195BAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{48FF20AA-AC76-46D6-8622-E371F9A74D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48FF20AA-AC76-46D6-8622-E371F9A74D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48FF20AA-AC76-46D6-8622-E371F9A74D63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE70A8A-8047-4A06-90CA-E8B287195BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE70A8A-8047-4A06-90CA-E8B287195BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE70A8A-8047-4A06-90CA-E8B287195BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE70A8A-8047-4A06-90CA-E8B287195BAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
