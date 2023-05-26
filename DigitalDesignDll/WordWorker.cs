@@ -30,7 +30,7 @@ namespace DigitalDesignDll
             return wordCounts.ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 
-        public static Dictionary<string, int> GetWordsCountWithThreads(string text)
+        public static Dictionary<string, int> GetWordsCountWithThread(string text)
         {
             // Создаём словарь для подсчёта уникальных слов
             var wordCounts = new ConcurrentDictionary<string, int>();
