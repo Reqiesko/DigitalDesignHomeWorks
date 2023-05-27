@@ -21,8 +21,6 @@ namespace WordCount
 
             var text = File.ReadAllText(inputFilePath!);
 
-            var methodInfo = typeof(WordWorker).GetMethod("GetWordsCount", BindingFlags.Static | BindingFlags.NonPublic);
-
             var res = new object();
 
             var time = new Stopwatch();
