@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using DigitalDesignDll;
@@ -26,25 +27,41 @@ namespace WordCount
 
             var time = new Stopwatch();
 
-            time.Start();
-            methodInfo?.Invoke(null, parameters: new object?[] { text });
-            time.Stop();
-            Console.WriteLine("Common method:     " + time.ElapsedMilliseconds);
+            var stringBuilder = new StringBuilder();
 
-            time.Restart();
-            WordWorker.GetWordsCountParallel(text);
-            time.Stop();
-            Console.WriteLine("Method with Parallel:     " + time.ElapsedMilliseconds);
+            var methods = typeof(WordWorker).GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+                .Where(m => m.ReturnType == typeof(Dictionary<string, int>) 
+                            && m.GetParameters().Length == 1
+                            && m.GetParameters().First().ParameterType == typeof(string));
 
-            time.Restart();
-            WordWorker.GetWordsCountWithThread(text);
-            time.Stop();
-            Console.WriteLine("Method with Thread:     " + time.ElapsedMilliseconds);
+            foreach (var method in methods)
+            {
+                time.Restart();
+                method.Invoke(null, new object?[] {text});
+                time.Stop();
+                Console.WriteLine(stringBuilder.Append(method.Name + ": " + time.ElapsedMilliseconds));
+                stringBuilder.Clear();
+            }
 
-            time.Restart();
-            WordWorker.GetWordsCountWithThreadPool(text);
-            time.Stop();
-            Console.WriteLine("Method with ThreadPool:     " + time.ElapsedMilliseconds);
+            //time.Start();
+            //methodInfo?.Invoke(null, parameters: new object?[] { text });
+            //time.Stop();
+            //Console.WriteLine("Common method:     " + time.ElapsedMilliseconds);
+            //
+            //time.Restart();
+            //WordWorker.GetWordsCountParallel(text);
+            //time.Stop();
+            //Console.WriteLine("Method with Parallel:     " + time.ElapsedMilliseconds);
+            //
+            //time.Restart();
+            //WordWorker.GetWordsCountWithThread(text);
+            //time.Stop();
+            //Console.WriteLine("Method with Thread:     " + time.ElapsedMilliseconds);
+            //
+            //time.Restart();
+            //WordWorker.GetWordsCountWithThreadPool(text);
+            //time.Stop();
+            //Console.WriteLine("Method with ThreadPool:     " + time.ElapsedMilliseconds);
 
             time.Restart();
             res = await RunAsyncPost(text);
