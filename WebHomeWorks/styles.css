@@ -6,7 +6,7 @@ html, body {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #9e9393;
+    background-color: rgb(130, 148, 196);
     display: flex;
     flex-direction: column;
 }
@@ -25,9 +25,11 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: stretch;
+    border-radius: 15px;
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
+    background-color: rgb(172, 177, 214);
 }
 
 .container-column {
@@ -36,9 +38,11 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
+    border-radius: 15px;
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
+    background-color: rgb(219, 223, 234);
 }
 
 .column {
@@ -47,7 +51,7 @@ header {
     border-radius: 15px;
     padding: 10px;
     height: auto;
-    background-color: #fff;
+    background-color: rgb(255, 234, 210);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     margin: 10px;
 }
@@ -57,7 +61,7 @@ header {
     flex-direction: row;
     border-radius: 15px;
     padding: 10px;
-    background-color: #fff;
+    background-color: rgb(255, 234, 210);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     margin: 10px;
 }
@@ -65,7 +69,7 @@ header {
 img {
     display: flex;
     flex:auto;
-    max-width: 50%;
+    max-width: 30%;
     float: left;
     margin-bottom: 10px;
 }
@@ -118,6 +122,7 @@ fieldset {
     display: flex;
     flex: auto;
     margin-top: 20px;
+    border-radius: 15px;
 }
 
 textarea {
