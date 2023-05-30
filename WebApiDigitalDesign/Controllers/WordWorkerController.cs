@@ -8,11 +8,16 @@ namespace WebApiDigitalDesign.Controllers
     public class WordWorkerController : ControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult<Dictionary<string, int>>> Get([FromBody] string text)
+        public async Task<ActionResult<Dictionary<string, int>>> Get()
         {
-            var words = WordWorker.GetWordsCountParallel(text);
+            using (StreamReader reader = new StreamReader(Request.Body))
+            {
+                string text = await reader.ReadToEndAsync();
 
-            return Ok(WordWorker.SortDictionary(words));
+                var words = WordWorker.GetWordsCountParallel(text);
+
+                return Ok(WordWorker.SortDictionary(words));
+            }
         }
     }
 }
