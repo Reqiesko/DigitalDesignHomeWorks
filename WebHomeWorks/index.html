@@ -52,7 +52,6 @@
                     реализуемые им интерфейсы;
                     разрешенные виды операций.
                 </p>
-            </div>
         </div>
         <div class="column">
             <p>Полезные ссылки:</p>
@@ -180,7 +179,53 @@
             </form>
         </div>
     </div>
-    <script>
+    <div class="container-row">
+        <div class="row">
+            <fieldset>
+                <legend>Узнать курсы валют</legend>
+                <form id="currencyForm">
+                    <div>
+                        <label>USD</label>
+                        <input type="text" id="USD"/>
+                    </div>
+                    <div>
+                        <label>EUR</label>
+                        <input type="text" id="EUR"/>
+                    </div>
+                    <p>
+                        <input type="submit" value="Узнать">
+                    </p>
+                </form>
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset>
+                <legend>Узнать курс криптовалют (в USD)</legend>
+                <form id="cryptoCurrencyForm">
+                    <div>
+                        <label>BTC</label>
+                        <input type="text" id="BTC"/>
+                    </div>
+                    <div>
+                        <label>Doge</label>
+                        <input type="text" id="Doge"/>
+                    </div>
+                    <div>
+                        <label>Etherium</label>
+                        <input type="text" id="ETH"/>
+                    </div>
+                    <div>
+                        <label>Tether</label>
+                        <input type="text" id="USDT"/>
+                    </div>
+                    <p>
+                        <input type="submit" value="Узнать">
+                    </p>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+    <script src="scripts.js">
         const ratioInput = document.getElementById('ratio');
         const phoneNumberInput = document.getElementById('phoneNumber');
 
