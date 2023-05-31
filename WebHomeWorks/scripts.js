@@ -46,3 +46,43 @@ const cryptoCurrencyForm = document.getElementById('cryptoCurrencyForm');
             console.log('Ошибка при получении данных:', error);
         }
     });
+
+
+const chessLeaderboardForm = document.getElementById('chessLeaderboardForm');
+const chessLeaderboardTextarea = document.getElementById('chessLeaderboard');
+    
+    chessLeaderboardForm.addEventListener('submit', fetchChessLeaderboards);
+    
+    async function fetchChessLeaderboards(event) {
+      event.preventDefault();
+    
+      try {
+        const response = await fetch('https://api.chess.com/pub/leaderboards');
+        const data = await response.json();
+    
+        if (data.daily) {
+          // Извлечение только полей "username" и "score"
+          const leaderboardData = data.daily.map(item => {
+            return {
+              username: item.username,
+              score: item.score
+            };
+          });
+    
+
+          for (let user in data.daily) {
+            chessLeaderboardTextarea.value += data.daily[user].username + " : " + data.daily[user].score + "\n"
+        }
+
+          // Преобразование данных в строку JSON
+          //const leaderboardJSON = JSON.stringify(leaderboardData);
+    
+          // Запись строки JSON в значение текстового поля
+          //chessLeaderboardTextarea.value = leaderboardJSON;
+        } else {
+          console.log('Поле "leaderboards" не найдено в ответе');
+        }
+      } catch (error) {
+        console.log('Ошибка при получении лидерборда:', error);
+      }
+    }
