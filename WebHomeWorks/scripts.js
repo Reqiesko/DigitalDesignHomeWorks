@@ -61,24 +61,9 @@ const chessLeaderboardTextarea = document.getElementById('chessLeaderboard');
         const data = await response.json();
     
         if (data.daily) {
-          // Извлечение только полей "username" и "score"
-          const leaderboardData = data.daily.map(item => {
-            return {
-              username: item.username,
-              score: item.score
-            };
-          });
-    
-
           for (let user in data.daily) {
             chessLeaderboardTextarea.value += data.daily[user].username + " : " + data.daily[user].score + "\n"
         }
-
-          // Преобразование данных в строку JSON
-          //const leaderboardJSON = JSON.stringify(leaderboardData);
-    
-          // Запись строки JSON в значение текстового поля
-          //chessLeaderboardTextarea.value = leaderboardJSON;
         } else {
           console.log('Поле "leaderboards" не найдено в ответе');
         }
