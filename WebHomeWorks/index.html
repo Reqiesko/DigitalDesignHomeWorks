@@ -62,16 +62,7 @@
                 <li><a href="https://github.com/khlebnikovroman/PolymerFilmGIS">Ссылка на диплом</a></li>
             </ul>
         </div>
-        <div class="column">
-            <form action="https://lordserial2.site/1998-luchshe-zvonite-solu-1-6-sezon-82.html" method="post">
-                <p>Определите Ваш телефонный номер:</p>
-                <input type="range" id="ratio" min="1" max="9999999999" step="1">
-                <br>
-                <input type="tel" id="phoneNumber" placeholder="(XXX)-XXX-XXXX" required>
-                <br>
-                <input type="submit" value="Отправить">
-            </form>
-        </div>
+        <div id="phoneNumberBlock"></div>
     </div>
 
     <div class="container-row">
@@ -244,9 +235,73 @@
             phoneNumberInput.value = this.value;
         });
     </script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>		 
+    <script type="text/babel">
+
+			/* Реализация компонента на основе класса */
+			class PhoneNumberBlock extends React.Component {
+
+                constructor(props){
+					super(props);
+					this.state={ 
+						color: 'color-first',
+						label: 'Нажмите',
+						counter: 0
+					};
+					/* Привязываем this к контексту текущего класса */
+					this.handleClick = this.handleClick.bind(this);
+				}
+
+                handleClick(event){
+					/* Выводим в консоль значения объекта 
+					   в event - будет содержаться вся информация о событии
+                       action="https://lordserial2.site/1998-luchshe-zvonite-solu-1-6-sezon-82.html"
+					*/
+					console.log("YES");
+				
+					let currentColor = (this.state.color === 'color-first') ? 'color-second' : 'color-first';
+					this.setState({ color: currentColor });
+				
+					this.setState(function(prevState, props){
+						return { counter: prevState.counter + props.increment };
+					});
+				}
+				render() {
+					return (
+                        <div className="column">
+                            <form>
+                                <p>Определите Ваш телефонный номер:</p>
+                                <input type="range" id="ratio" min="0000000001" max="9999999999" step="1" onChange={}/>
+                                <br/>
+                                <input type="tel" id="phoneNumber" placeholder="(XXX)-XXX-XXXX" required />
+                                <br/>
+                                <input type="submit" value="Отправить" onClick={ this.handleClick }/>
+                            </form>
+                        </div>
+                    );
+				}
+			}
+			
+			/* 4.4 Пример композиции компонент. Несколько React-компонент объединяются в одну App */
+			function App() {
+			  return (
+				<div className="composition">
+				  <h1>4.4 Это композиция нескольких React-компонент</h1>
+				  <PhoneNumberBlock/>
+				</div>
+			  );
+			}			
+			
+			/* Отрисовка компонент в DOM */
+			ReactDOM.render(<PhoneNumberBlock />, document.getElementById("phoneNumberBlock"));
+
+			ReactDOM.render(<App />, document.getElementById("rootApp"));
+
+		</script>
     <footer>
         &copy; Артемий Нерадовский, 2023 Все права защищены.
     </footer>
 </body>
-
 </html>

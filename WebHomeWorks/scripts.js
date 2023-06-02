@@ -65,7 +65,7 @@ const chessLeaderboardTextarea = document.getElementById('chessLeaderboard');
             chessLeaderboardTextarea.value += data.daily[user].username + " : " + data.daily[user].score + "\n"
         }
         } else {
-          console.log('Поле "leaderboards" не найдено в ответе');
+          console.log('Поле "daily" не найдено в ответе');
         }
       } catch (error) {
         console.log('Ошибка при получении лидерборда:', error);
