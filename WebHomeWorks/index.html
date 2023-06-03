@@ -62,30 +62,8 @@
                     <li><a href="https://github.com/khlebnikovroman/PolymerFilmGIS">Ссылка на диплом</a></li>
                 </ul>
             </div>
-            <div id="phoneNumberBlock"></div>
         </div>
-
-        <div class="container-row">
-            <div class="row">
-                <div class="container-column">
-                    <div id="checkBoxBlock"></div>
-                    <div id="radioBoxBlock"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="container-column">
-                    <div id="datePickBlock"></div>
-                    <div id="loginBlock"></div>
-                    <div id="selectBlock"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-row">
-            <div id="getCurrencyBlock"></div>
-            <div id="getCryptoCurrencyBlock"></div>
-            <div id="getChessLeaderboardBlock"></div>
-        </div>
+        <div id="root"></div>
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
@@ -146,7 +124,6 @@
                     this.state = {
                         selectedCheckboxes: []
                     };
-                    this.handleClickSubmit = this.handleClickSubmit.bind(this);
                 }
 
                 handleClickSubmit = (event) => {
@@ -271,15 +248,13 @@
                 }
 
                 handleClickSubmit = (event) => {
-                    event.preventDefault(); // Предотвращаем отправку формы
+                    event.preventDefault();
 
-                    // Выводим выбранную дату в alert
                     alert(`Выбранная дата: ${this.state.selectedDate}`);
                 }
 
-                async handleDateChange(event) {
-                    await this.setState({ selectedDate: event.target.value }); // Тестил поэтому асинк
-                    console.log(this.state.selectedDate);
+                handleDateChange(event) {
+                    this.setState({ selectedDate: event.target.value });
                 }
 
                 render() {
@@ -581,16 +556,39 @@
                     );
                 }
             }
+
+            class ContentComponent extends React.Component {
+                render() {
+                    return (
+                        <div>
+                            <PhoneNumberBlock />
+                            <div class="container-row">
+                                
+                                <div class="row">
+                                    <div class="container-column">
+                                        <CheckBoxBlock />
+                                        <RadioBoxBlock />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="container-column">
+                                        <DatePickBlock />
+                                        <LoginBlock />
+                                        <SelectBlock />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-row">
+                                <GetCurrencyBlock />
+                                <GetCryptoCurrencyBlock />
+                                <GetChessLeaderboardBlock />
+                            </div>
+                        </div>
+                    );
+                }
+            }
             /* Отрисовка компонент в DOM */
-            ReactDOM.render(<PhoneNumberBlock />, document.getElementById("phoneNumberBlock"));
-            ReactDOM.render(<CheckBoxBlock />, document.getElementById("checkBoxBlock"));
-            ReactDOM.render(<RadioBoxBlock />, document.getElementById("radioBoxBlock"));
-            ReactDOM.render(<DatePickBlock />, document.getElementById("datePickBlock"));
-            ReactDOM.render(<LoginBlock />, document.getElementById("loginBlock"));
-            ReactDOM.render(<SelectBlock />, document.getElementById("selectBlock"));
-            ReactDOM.render(<CurrencyBlock />, document.getElementById("getCurrencyBlock"));
-            ReactDOM.render(<CryptoCurrencyBlock />, document.getElementById("getCryptoCurrencyBlock"));
-            ReactDOM.render(<ChessLeaderboardBlock />, document.getElementById("getChessLeaderboardBlock"));
+            ReactDOM.render(<ContentComponent />, document.getElementById("root"));
         </script>
         <footer>
             &copy; Артемий Нерадовский, 2023 Все права защищены.
