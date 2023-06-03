@@ -86,6 +86,7 @@
                 }
 
                 handleClickSubmit(event) {
+                    event.preventDefault();
                     alert('Введенный номер: ' + this.state.phoneNumber);
                 }
                 render() {
@@ -127,9 +128,8 @@
                 }
 
                 handleClickSubmit = (event) => {
-                    event.preventDefault(); // Предотвращаем отправку формы
+                    event.preventDefault();
 
-                    // Выводим выбранные флажки в alert
                     alert(`Выбранные флажки: ${this.state.selectedCheckboxes.join(', ')}`);
                 }
 
@@ -138,8 +138,6 @@
                     const isChecked = event.target.checked;
 
                     this.setState((prevState) => {
-                        // Если флажок выбран, добавляем его в список выбранных флажков,
-                        // в противном случае удаляем его из списка выбранных флажков
                         if (isChecked) {
                             return {
                                 selectedCheckboxes: [...prevState.selectedCheckboxes, checkboxId]
