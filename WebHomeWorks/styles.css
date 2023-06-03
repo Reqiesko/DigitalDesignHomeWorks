@@ -20,9 +20,7 @@ header {
 }
 
 .container-row {
-    flex: auto;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: stretch;
     border-radius: 15px;
@@ -30,6 +28,11 @@ header {
     margin-left: 10px;
     margin-right: 10px;
     background-color: rgb(172, 177, 214);
+}
+
+.container-row > div {
+    flex: 1;
+    display: flex;
 }
 
 .container-column {
@@ -50,7 +53,6 @@ header {
     flex-direction: column;
     border-radius: 15px;
     padding: 10px;
-    height: auto;
     background-color: rgb(255, 234, 210);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     margin: 10px;
@@ -94,7 +96,7 @@ input[type="submit"] {
 }
 
 input[type="text"],
-input[type="email"],
+input[type="password"],
 input[type="date"],
 input[type="tel"],
 select {
@@ -113,7 +115,7 @@ input[type="range"] {
 }
 
 form {
-    flex: auto;
+    flex: 1;
     padding: 15px;
     flex-direction: column;
 }
@@ -135,7 +137,8 @@ textarea {
     font-size: 14px;
     height: 200px;
     max-height: 400px;
-    width: 100%;
+    width: 300px;
+    max-width: 450px;
     box-sizing: border-box;
     margin-bottom: 10px;
 }

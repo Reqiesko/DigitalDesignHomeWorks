@@ -52,256 +52,416 @@
                     реализуемые им интерфейсы;
                     разрешенные виды операций.
                 </p>
+            </div>
+            <div class="column">
+                <p>Полезные ссылки:</p>
+                <ul>
+                    <li><a href="https://learn.microsoft.com/ru-ru/dotnet/csharp/">Ссылка на официальную документацию
+                            Microsoft</a></li>
+                    <li><a href="https://metanit.com/">Ссылка Metanit</a></li>
+                    <li><a href="https://github.com/khlebnikovroman/PolymerFilmGIS">Ссылка на диплом</a></li>
+                </ul>
+            </div>
+            <div id="phoneNumberBlock"></div>
         </div>
-        <div class="column">
-            <p>Полезные ссылки:</p>
-            <ul>
-                <li><a href="https://learn.microsoft.com/ru-ru/dotnet/csharp/">Ссылка на официальную документацию
-                        Microsoft</a></li>
-                <li><a href="https://metanit.com/">Ссылка Metanit</a></li>
-                <li><a href="https://github.com/khlebnikovroman/PolymerFilmGIS">Ссылка на диплом</a></li>
-            </ul>
-        </div>
-        <div id="phoneNumberBlock"></div>
-    </div>
 
-    <div class="container-row">
-        <div class="row">
-            <div class="container-column">
-                <div class="column">
-                    <fieldset>
-                        <legend>Выберете лучший язык программирования</legend>
-                        <form action="https://example.com" method="post">
-                            <p>
-                                <input type="checkbox" id="csharp" name="csharp" checked />
-                                C#
-                            </p>
-                            <p>
-                                <input type="checkbox" id="csharp" name="csharp" checked />
-                                C#
-                            </p>
-                            <p>
-                                <input type="checkbox" id="csharp" name="csharp" checked />
-                                C#
-                            </p>
-                            <p>
-                                <input type="checkbox" id="csharp" name="csharp" checked />
-                                C#
-                            </p>
-                            <input type="submit" value="Сделать правильный выбор">
-                        </form>
-                    </fieldset>
+        <div class="container-row">
+            <div class="row">
+                <div class="container-column">
+                    <div id="checkBoxBlock"></div>
+                    <div id="radioBoxBlock"></div>
                 </div>
-                <div class="column">
-                    <fieldset>
-                        <legend>Выберете лучший язык программирования</legend>
-                        <form action="https://example.com" method="post">
-                            <p>
-                                <input type="radio" value="csharp" name="csharp" />
-                                C#
-                            </p>
-                            <p>
-                                <input type="radio" value="csharp" name="csharp" />
-                                C#
-                            </p>
-                            <p>
-                                <input type="radio" value="csharp" name="csharp" />
-                                C#
-                            </p>
-                            <p>
-                                <input type="radio" value="csharp" name="csharp" />
-                                C#
-                            </p>
-                            <input type="submit" value="Сделать правильный выбор">
-                        </form>
-                    </fieldset>
+            </div>
+            <div class="row">
+                <div class="container-column">
+                    <div id="datePickBlock"></div>
+                    <div id="loginBlock"></div>
+                    <div id="selectBlock"></div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="container-column">
-                <div class="column">
-                    <form action="https://example.com" method="get">
-                        <p>
-                            <input type="date" name="searchdate" required />
-                            <input type="submit" value="Найти" />
-                        </p>
-                    </form>
-                </div>
 
-                <div class="column">
-                    <form action="https://example.com" method="post">
-                        <p>
-                            <label for="name">Имя:</label>
-                            <input type="text" placeholder="Введите свой email" id="name" name="name" required>
-                        </p>
-                        <p>
-                            <label for="email">Email:</label>
-                            <input type="email" placeholder="Введите пароль" id="email" name="email" required>
-
-                            <input type="submit" value="Отправить">
-                        </p>
-                    </form>
-                </div>
-                <div class="column">
-                    <form action="https://example.com" method="post">
-                        <legend for="subject">Выберете лучший язык программирования</legend>
-                        <select id="subject" name="subject">
-                            <option value="c#">C# 5.0</option>
-                            <option value="c#">C# 6.0</option>
-                            <option value="c#">C# 7.0</option>
-                            <option value="c#">C# T1000</option>
-                        </select>
-                        <p>
-                            <input type="submit" value="Отправить">
-                        </p>
-                    </form>
-                </div>
-            </div>
+        <div class="container-row">
+            <div id="getCurrencyBlock"></div>
+            <div id="getCryptoCurrencyBlock"></div>
+            <div id="getChessLeaderboardBlock"></div>
         </div>
-    </div>
+        <script src="scripts.js"></script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+        <script type="text/babel">
 
-    <div class="container-column"> 
-        <div class="column">            
-            <legend>Здесь можно написать текст и воспользоваться API из предыдущего блока</legend>
-            <form action="http://localhost:5000/api/WordWorker" method="post" enctype="text/plain" >
-                <textarea name="text"></textarea>
-                <input type="submit" value="Отправить">
-            </form>
-        </div>
-    </div>
-    <div class="container-row">
-        <div class="row">
-            <fieldset>
-                <legend>Узнать курсы валют</legend>
-                <form id="currencyForm">
-                    <div>
-                        <label>USD</label>
-                        <input type="text" id="USD"/>
-                    </div>
-                    <div>
-                        <label>EUR</label>
-                        <input type="text" id="EUR"/>
-                    </div>
-                    <p>
-                        <input type="submit" value="Узнать">
-                    </p>
-                </form>
-            </fieldset>
-        </div>
-        <div class="row">
-            <fieldset>
-                <legend>Узнать курс криптовалют (в USD)</legend>
-                <form id="cryptoCurrencyForm">
-                    <div>
-                        <label>BTC</label>
-                        <input type="text" id="BTC"/>
-                    </div>
-                    <div>
-                        <label>Doge</label>
-                        <input type="text" id="Doge"/>
-                    </div>
-                    <div>
-                        <label>Etherium</label>
-                        <input type="text" id="ETH"/>
-                    </div>
-                    <div>
-                        <label>Tether</label>
-                        <input type="text" id="USDT"/>
-                    </div>
-                    <p>
-                        <input type="submit" value="Узнать">
-                    </p>
-                </form>
-            </fieldset>
-        </div>
-        <div class="row">
-            <fieldset>
-                <legend>Узнать рейтинг шахматистов</legend>
-                <form id="chessLeaderboardForm">
-                    <div>
-                        <textarea id="chessLeaderboard"></textarea>
-                        <input type="submit" value="Узнать">
-                    </div>
-                </form>
-            </fieldset>
-        </div>
-    </div>
-    <script src="scripts.js">
-        const ratioInput = document.getElementById('ratio');
-        const phoneNumberInput = document.getElementById('phoneNumber');
+            /* Реализация компонента на основе класса */
+            class PhoneNumberBlock extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        phoneNumber: '',
+                    };
+                }
 
-        ratioInput.addEventListener('input', function () {
-            phoneNumberInput.value = this.value;
-        });
-    </script>
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>		 
-    <script type="text/babel">
 
-			/* Реализация компонента на основе класса */
-			class PhoneNumberBlock extends React.Component {
+                handleClick(event) {
+                    this.setState({ phoneNumber: event.target.value });
+                }
 
-                constructor(props){
-					super(props);
-					this.state={ 
-						color: 'color-first',
-						label: 'Нажмите',
-						counter: 0
-					};
-					/* Привязываем this к контексту текущего класса */
-					this.handleClick = this.handleClick.bind(this);
-				}
-
-                handleClick(event){
-					/* Выводим в консоль значения объекта 
-					   в event - будет содержаться вся информация о событии
-                       action="https://lordserial2.site/1998-luchshe-zvonite-solu-1-6-sezon-82.html"
-					*/
-					console.log("YES");
-				
-					let currentColor = (this.state.color === 'color-first') ? 'color-second' : 'color-first';
-					this.setState({ color: currentColor });
-				
-					this.setState(function(prevState, props){
-						return { counter: prevState.counter + props.increment };
-					});
-				}
-				render() {
-					return (
+                handleClickSubmit(event) {
+                    alert('Введенный номер: ' + this.state.phoneNumber);
+                }
+                render() {
+                    return (
                         <div className="column">
                             <form>
-                                <p>Определите Ваш телефонный номер:</p>
-                                <input type="range" id="ratio" min="0000000001" max="9999999999" step="1" onChange={}/>
-                                <br/>
-                                <input type="tel" id="phoneNumber" placeholder="(XXX)-XXX-XXXX" required />
-                                <br/>
-                                <input type="submit" value="Отправить" onClick={ this.handleClick }/>
+                                <p>Определите ваш телефонный номер:</p>
+                                <input type="range" id="ratio" min="70000000000" max="89999999999" step="1" onChange={this.handleClick.bind(this)} />
+                                <br />
+                                <input type="tel" id="phoneNumber" placeholder="(XXX)-XXX-XXXX" value={this.state.phoneNumber} required />
+                                <br />
+                                <input type="submit" value="Отправить" onClick={this.handleClickSubmit.bind(this)} />
                             </form>
                         </div>
                     );
-				}
-			}
-			
-			/* 4.4 Пример композиции компонент. Несколько React-компонент объединяются в одну App */
-			function App() {
-			  return (
-				<div className="composition">
-				  <h1>4.4 Это композиция нескольких React-компонент</h1>
-				  <PhoneNumberBlock/>
-				</div>
-			  );
-			}			
-			
-			/* Отрисовка компонент в DOM */
-			ReactDOM.render(<PhoneNumberBlock />, document.getElementById("phoneNumberBlock"));
+                }
+            }
 
-			ReactDOM.render(<App />, document.getElementById("rootApp"));
+            class CheckBoxBlock extends React.Component {
 
-		</script>
-    <footer>
-        &copy; Артемий Нерадовский, 2023 Все права защищены.
-    </footer>
+                handleClickSubmit(event) {
+                    event.preventDefault(); // Предотвращаем отправку формы
+
+                    // Получаем все выбранные флажки
+                    const selectedCheckboxes = Array.from(event.target.elements)
+                        .filter(element => element.type === 'checkbox' && element.checked)
+                        .map(element => element.id);
+
+                    // Выводим выбранные флажки в alert
+                    alert(`Выбранные флажки: ${selectedCheckboxes.join(', ')}`);
+                }
+
+                render() {
+                    const options = [
+                        { id: '1', label: 'C#' },
+                        { id: '2', label: 'C#' },
+                        { id: '3', label: 'C#' },
+                        { id: '4', label: 'C#' }
+                    ];
+
+                    const checkboxes = options.map(option => (
+                        <p key={option.id}>
+                            <input type="checkbox" id={option.id} name="csharp" />
+                            {option.label}
+                        </p>
+                    ));
+
+                    return (
+                        <div className="column">
+                            <form onSubmit={this.handleClickSubmit}>
+                                <lable>Выберете лучший язык программирования</lable>
+                                {checkboxes}
+                                <input type="submit" value="Сделать правильный выбор" />
+                            </form>
+                        </div>
+                    );
+                }
+            }
+
+            class RadioBoxBlock extends React.Component {
+
+                handleClickSubmit(event) {
+                    event.preventDefault(); // Предотвращаем отправку формы
+
+                    // Находим выбранный радио
+                    const selectedRadio = Array.from(event.target.elements)
+                        .find(element => element.type === 'radio' && element.checked);
+
+                    console.log(selectedRadio)
+                    // Получаем значение выбранного радио
+                    const selectedValue = selectedRadio ? selectedRadio.value : '';
+
+                    // Выводим выбранное радио в alert
+                    alert(`Выбранное радио: ${selectedValue}`);
+                }
+
+                render() {
+                    const options = [
+                        { id: '1', label: 'C#' },
+                        { id: '2', label: 'C# 1' },
+                        { id: '3', label: 'C# 2' },
+                        { id: '4', label: 'C# 3' }
+                    ];
+
+                    const radios = options.map(option => (
+                        <p key={option.id}>
+                            <input type="radio" id={option.id} name="csharp" value={option.label} />
+                            {option.label}
+                        </p>
+                    ));
+
+                    return (
+                        <div className="column">
+                            <form onSubmit={this.handleClickSubmit}>
+                                <lable>Выберете лучший язык программирования</lable>
+                                {radios}
+                                <input type="submit" value="Сделать правильный выбор" />
+                            </form>
+                        </div>
+                    );
+                }
+            }
+
+            class DatePickBlock extends React.Component {
+                handleClickSubmit(event) {
+                    event.preventDefault(); // Предотвращаем отправку формы
+
+                    // Получаем значение выбранной даты
+                    const selectedDate = event.target.elements.searchdate.value;
+
+                    // Выводим выбранную дату в alert
+                    alert(`Выбранная дата: ${selectedDate}`);
+                }
+                render() {
+                    return (
+                        <div class="column">
+                            <form onSubmit={this.handleClickSubmit}>
+                                <p>
+                                    <input title="datepick" type="date" name="searchdate" required />
+                                    <input type="submit" value="Найти" />
+                                </p>
+                            </form>
+                        </div>
+                    );
+                }
+            }
+
+            class LoginBlock extends React.Component {
+
+                handleClickSubmit(event) {
+                    event.preventDefault(); // Предотвращаем отправку формы
+
+                    // Получаем значения введенного имени и пароля
+                    const name = event.target.elements.name.value;
+                    const password = event.target.elements.password.value;
+
+                    // Выводим значения введенного имени и пароля в alert
+                    alert(`Имя: ${name}\nПароль: ${password}`);
+                }
+
+                render() {
+
+                    return (
+                        <div class="column">
+                            <form onSubmit={this.handleClickSubmit}>
+                                <p>
+                                    <label for="name">Имя:</label>
+                                    <input type="text" placeholder="Введите свой логин" id="name" name="name" required />
+                                </p>
+                                <p>
+                                    <label for="password">Пароль:</label>
+                                    <input type="password" placeholder="Введите пароль" id="password" name="password" required />
+
+                                    <input type="submit" value="Отправить" />
+                                </p>
+                            </form>
+                        </div>
+                    );
+                }
+            }
+
+            class SelectBlock extends React.Component {
+                handleClickSubmit(event) {
+                    event.preventDefault(); // Предотвращаем отправку формы
+
+                    // Получаем выбранное значение селекта
+                    const selectedValue = event.target.elements.subject.value;
+
+                    // Выводим выбранное значение в alert
+                    alert(`Выбрано: ${selectedValue}`);
+                }
+
+                render() {
+                    const options = [
+                        { id: '1', label: 'C# 5.0' },
+                        { id: '2', label: 'C# 6.0' },
+                        { id: '3', label: 'C# 7.0' },
+                        { id: '4', label: 'C# T1000' }
+                    ];
+
+                    const selectOptions = options.map(option => (
+                        <option key={option.id} value={option.label}>
+                            {option.label}
+                        </option>
+                    ));
+
+                    return (
+                        <div class="column">
+                            <form onSubmit={this.handleClickSubmit}>
+                                <legend for="subject">Выберете лучший язык программирования</legend>
+                                <select id="subject" name="subject">
+                                    {selectOptions}
+                                </select>
+                                <p>
+                                    <input type="submit" value="Отправить" />
+                                </p>
+                            </form>
+                        </div>
+                    );
+                }
+            }
+
+            class GetCurrencyBlock extends React.Component {
+
+                handleClickSubmit = async (event) => {
+                    event.preventDefault();
+
+                    const USDInput = document.getElementById('USD');
+                    const EURInput = document.getElementById('EUR');
+
+                    try {
+                        const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
+                        const data = await response.json();
+
+                        const USDRate = data.Valute.USD.Value;
+                        const EURRate = data.Valute.EUR.Value;
+
+                        USDInput.value = USDRate.toFixed(2);
+                        EURInput.value = EURRate.toFixed(2);
+                    } catch (error) {
+                        console.log('Ошибка при получении курсов валют:', error);
+                    }
+                }
+                render() {
+                    return (
+                        <div className="row">
+                            <fieldset>
+                                <legend>Узнать курсы валют</legend>
+                                <form onSubmit={this.handleClickSubmit}>
+                                    <div>
+                                        <label>USD</label>
+                                        <input type="text" id="USD" />
+                                    </div>
+                                    <div>
+                                        <label>EUR</label>
+                                        <input type="text" id="EUR" />
+                                    </div>
+                                    <p>
+                                        <input type="submit" value="Узнать" />
+                                    </p>
+                                </form>
+                            </fieldset>
+                        </div>
+                    );
+                }
+            }
+
+            class GetCryptoCurrencyBlock extends React.Component {
+                handleClickSubmit = async (event) => {
+                    event.preventDefault();
+
+                    const btcValue = document.getElementById('bitcoin');
+                    const dogeValue = document.getElementById('dogecoin');
+                    const ethValue = document.getElementById('ethereum');
+                    const usdtValue = document.getElementById('tether');
+
+                    try {
+                        const response = await fetch('https://api.coincap.io/v2/assets?ids=bitcoin,dogecoin,ethereum,tether');
+                        const data = await response.json();
+
+                        const currencies = data.data;
+                        console.log(currencies);
+                        currencies.forEach((currency) => {
+                            const { id, priceUsd } = currency;
+                            const inputValue = document.getElementById(id);
+                            if (inputValue) {
+                                inputValue.value = priceUsd;
+                            }
+                        });
+
+                    } catch (error) {
+                        console.log('Ошибка при получении данных:', error);
+                    }
+                }
+                render() {
+                    const currencies = [
+                        { id: 'bitcoin', label: 'BTC' },
+                        { id: 'ethereum', label: 'Etherium' },
+                        { id: 'tether', label: 'Tether' },
+                        { id: 'dogecoin', label: 'Doge' },
+                    ];
+
+                    const currencyItems = currencies.map((currency) => (
+                        <div key={currency.id}>
+                            <label>{currency.label}</label>
+                            <input type="text" id={currency.id} />
+                        </div>
+                    ));
+                    return (
+                        <div className="row">
+                            <fieldset>
+                                <legend>Узнать курс криптовалют (в USD)</legend>
+                                <form onSubmit={this.handleClickSubmit}>
+                                    {currencyItems}
+                                    <p>
+                                        <input type="submit" value="Узнать" />
+                                    </p>
+                                </form>
+                            </fieldset>
+                        </div>
+                    );
+                }
+            }
+
+            class GetChessLeaderboardBlock extends React.Component {
+
+                handleClickSubmit = async (event) => {
+                    event.preventDefault();
+                    const chessLeaderboardTextarea = document.getElementById('chessLeaderboard');
+                    try {
+                        const response = await fetch('https://api.chess.com/pub/leaderboards');
+                        const data = await response.json();
+
+                        if (data.daily) {
+                            for (let user in data.daily) {
+                                chessLeaderboardTextarea.value += data.daily[user].username + " : " + data.daily[user].score + "\n"
+                            }
+                        } else {
+                            console.log('Поле "daily" не найдено в ответе');
+                        }
+                    } catch (error) {
+                        console.log('Ошибка при получении лидерборда:', error);
+                    }
+                }
+
+                render() {
+                    return (
+                        <div className="row">
+                            <fieldset>
+                                <legend>Узнать рейтинг шахматистов</legend>
+                                <form onSubmit={this.handleClickSubmit}>
+                                    <div>
+                                        <textarea id="chessLeaderboard"></textarea>
+                                        <input type="submit" value="Узнать" />
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </div>
+                    );
+                }
+            }
+            /* Отрисовка компонент в DOM */
+            ReactDOM.render(<PhoneNumberBlock />, document.getElementById("phoneNumberBlock"));
+            ReactDOM.render(<CheckBoxBlock />, document.getElementById("checkBoxBlock"));
+            ReactDOM.render(<RadioBoxBlock />, document.getElementById("radioBoxBlock"));
+            ReactDOM.render(<DatePickBlock />, document.getElementById("datePickBlock"));
+            ReactDOM.render(<LoginBlock />, document.getElementById("loginBlock"));
+            ReactDOM.render(<SelectBlock />, document.getElementById("selectBlock"));
+            ReactDOM.render(<GetCurrencyBlock />, document.getElementById("getCurrencyBlock"));
+            ReactDOM.render(<GetCryptoCurrencyBlock />, document.getElementById("getCryptoCurrencyBlock"));
+            ReactDOM.render(<GetChessLeaderboardBlock />, document.getElementById("getChessLeaderboardBlock"));
+        </script>
+        <footer>
+            &copy; Артемий Нерадовский, 2023 Все права защищены.
+        </footer>
 </body>
+
 </html>
