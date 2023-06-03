@@ -86,7 +86,6 @@
             <div id="getCryptoCurrencyBlock"></div>
             <div id="getChessLeaderboardBlock"></div>
         </div>
-        <script src="scripts.js"></script>
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
@@ -99,10 +98,12 @@
                     this.state = {
                         phoneNumber: '',
                     };
+                    this.handleChange = this.handleChange.bind(this)
+                    this.handleClickSubmit = this.handleClickSubmit.bind(this)
                 }
 
 
-                handleClick(event) {
+                handleChange(event) {
                     this.setState({ phoneNumber: event.target.value });
                 }
 
@@ -114,11 +115,25 @@
                         <div className="column">
                             <form>
                                 <p>Определите ваш телефонный номер:</p>
-                                <input type="range" id="ratio" min="70000000000" max="89999999999" step="1" onChange={this.handleClick.bind(this)} />
+                                <input
+                                    type="range"
+                                    id="ratio"
+                                    min="70000000000"
+                                    max="89999999999"
+                                    step="1"
+                                    onChange={this.handleChange} />
                                 <br />
-                                <input type="tel" id="phoneNumber" placeholder="(XXX)-XXX-XXXX" value={this.state.phoneNumber} required />
+                                <input
+                                    type="tel"
+                                    id="phoneNumber"
+                                    placeholder="(XXX)-XXX-XXXX"
+                                    value={this.state.phoneNumber}
+                                    required />
                                 <br />
-                                <input type="submit" value="Отправить" onClick={this.handleClickSubmit.bind(this)} />
+                                <input
+                                    type="submit"
+                                    value="Отправить"
+                                    onClick={this.handleClickSubmit} />
                             </form>
                         </div>
                     );
@@ -126,40 +141,67 @@
             }
 
             class CheckBoxBlock extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        selectedCheckboxes: []
+                    };
+                    this.handleClickSubmit = this.handleClickSubmit.bind(this);
+                }
 
-                handleClickSubmit(event) {
+                handleClickSubmit = (event) => {
                     event.preventDefault(); // Предотвращаем отправку формы
 
-                    // Получаем все выбранные флажки
-                    const selectedCheckboxes = Array.from(event.target.elements)
-                        .filter(element => element.type === 'checkbox' && element.checked)
-                        .map(element => element.id);
-
                     // Выводим выбранные флажки в alert
-                    alert(`Выбранные флажки: ${selectedCheckboxes.join(', ')}`);
+                    alert(`Выбранные флажки: ${this.state.selectedCheckboxes.join(', ')}`);
+                }
+
+                handleCheckboxChange = (event) => {
+                    const checkboxId = event.target.id;
+                    const isChecked = event.target.checked;
+
+                    this.setState((prevState) => {
+                        // Если флажок выбран, добавляем его в список выбранных флажков,
+                        // в противном случае удаляем его из списка выбранных флажков
+                        if (isChecked) {
+                            return {
+                                selectedCheckboxes: [...prevState.selectedCheckboxes, checkboxId]
+                            };
+                        } else {
+                            return {
+                                selectedCheckboxes: prevState.selectedCheckboxes.filter((id) => id !== checkboxId)
+                            };
+                        }
+                    });
                 }
 
                 render() {
                     const options = [
                         { id: '1', label: 'C#' },
-                        { id: '2', label: 'C#' },
-                        { id: '3', label: 'C#' },
-                        { id: '4', label: 'C#' }
+                        { id: '2', label: 'C++' },
+                        { id: '3', label: 'Java' },
+                        { id: '4', label: 'Python' }
                     ];
 
-                    const checkboxes = options.map(option => (
+                    const checkboxes = options.map((option) => (
                         <p key={option.id}>
-                            <input type="checkbox" id={option.id} name="csharp" />
+                            <input
+                                type="checkbox"
+                                id={option.id}
+                                name={option.label}
+                                checked={this.state.selectedCheckboxes.includes(option.id)}
+                                onChange={this.handleCheckboxChange}
+                            />
                             {option.label}
                         </p>
                     ));
 
                     return (
                         <div className="column">
-                            <form onSubmit={this.handleClickSubmit}>
-                                <lable>Выберете лучший язык программирования</lable>
+                            <form>
+                                <label>Выберете лучший язык программирования</label>
                                 {checkboxes}
-                                <input type="submit" value="Сделать правильный выбор" />
+                                <input type="submit" value="Сделать правильный выбор" onClick={this.handleClickSubmit} />
                             </form>
                         </div>
                     );
@@ -167,20 +209,22 @@
             }
 
             class RadioBoxBlock extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        selectedValue: ''
+                    };
+                    this.handleRadioChange = this.handleRadioChange.bind(this)
+                }
 
-                handleClickSubmit(event) {
-                    event.preventDefault(); // Предотвращаем отправку формы
+                handleClickSubmit = (event) => {
+                    event.preventDefault();
 
-                    // Находим выбранный радио
-                    const selectedRadio = Array.from(event.target.elements)
-                        .find(element => element.type === 'radio' && element.checked);
+                    alert(`Выбранное радио: ${this.state.selectedValue}`);
+                }
 
-                    console.log(selectedRadio)
-                    // Получаем значение выбранного радио
-                    const selectedValue = selectedRadio ? selectedRadio.value : '';
-
-                    // Выводим выбранное радио в alert
-                    alert(`Выбранное радио: ${selectedValue}`);
+                handleRadioChange(event) {
+                    this.setState({ selectedValue: event.target.value });
                 }
 
                 render() {
@@ -191,19 +235,26 @@
                         { id: '4', label: 'C# 3' }
                     ];
 
-                    const radios = options.map(option => (
+                    const radios = options.map((option) => (
                         <p key={option.id}>
-                            <input type="radio" id={option.id} name="csharp" value={option.label} />
+                            <input
+                                type="radio"
+                                id={option.id}
+                                name="csharp"
+                                value={option.label}
+                                checked={this.state.selectedValue === option.label}
+                                onChange={this.handleRadioChange}
+                            />
                             {option.label}
                         </p>
                     ));
 
                     return (
                         <div className="column">
-                            <form onSubmit={this.handleClickSubmit}>
-                                <lable>Выберете лучший язык программирования</lable>
+                            <form>
+                                <label>Выберете лучший язык программирования</label>
                                 {radios}
-                                <input type="submit" value="Сделать правильный выбор" />
+                                <input type="submit" value="Сделать правильный выбор" onClick={this.handleClickSubmit} />
                             </form>
                         </div>
                     );
@@ -211,22 +262,40 @@
             }
 
             class DatePickBlock extends React.Component {
-                handleClickSubmit(event) {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        selectedDate: ''
+                    };
+                    this.handleDateChange = this.handleDateChange.bind(this);
+                }
+
+                handleClickSubmit = (event) => {
                     event.preventDefault(); // Предотвращаем отправку формы
 
-                    // Получаем значение выбранной даты
-                    const selectedDate = event.target.elements.searchdate.value;
-
                     // Выводим выбранную дату в alert
-                    alert(`Выбранная дата: ${selectedDate}`);
+                    alert(`Выбранная дата: ${this.state.selectedDate}`);
                 }
+
+                async handleDateChange(event) {
+                    await this.setState({ selectedDate: event.target.value }); // Тестил поэтому асинк
+                    console.log(this.state.selectedDate);
+                }
+
                 render() {
                     return (
-                        <div class="column">
-                            <form onSubmit={this.handleClickSubmit}>
+                        <div className="column">
+                            <form>
                                 <p>
-                                    <input title="datepick" type="date" name="searchdate" required />
-                                    <input type="submit" value="Найти" />
+                                    <input
+                                        title="datepick"
+                                        type="date"
+                                        name="searchdate"
+                                        value={this.state.selectedDate}
+                                        onChange={this.handleDateChange}
+                                        required
+                                    />
+                                    <input type="submit" value="Найти" onClick={this.handleClickSubmit} />
                                 </p>
                             </form>
                         </div>
@@ -235,33 +304,60 @@
             }
 
             class LoginBlock extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        name: '',
+                        password: ''
+                    };
+                }
 
-                handleClickSubmit(event) {
+                handleClickSubmit = (event) => {
                     event.preventDefault(); // Предотвращаем отправку формы
 
-                    // Получаем значения введенного имени и пароля
-                    const name = event.target.elements.name.value;
-                    const password = event.target.elements.password.value;
+                    // Получаем значения введенного имени и пароля из состояния
+                    const { name, password } = this.state;
 
                     // Выводим значения введенного имени и пароля в alert
                     alert(`Имя: ${name}\nПароль: ${password}`);
                 }
 
+                handleInputChange = (event) => {
+                    const { name, value } = event.target;
+                    this.setState({ [name]: value });
+                }
+
                 render() {
+                    const { name, password } = this.state;
 
                     return (
-                        <div class="column">
-                            <form onSubmit={this.handleClickSubmit}>
+                        <div className="column">
+                            <form>
                                 <p>
-                                    <label for="name">Имя:</label>
-                                    <input type="text" placeholder="Введите свой логин" id="name" name="name" required />
+                                    <label htmlFor="name">Имя:</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Введите свой логин"
+                                        id="name"
+                                        name="name"
+                                        value={name}
+                                        onChange={this.handleInputChange}
+                                        required
+                                    />
                                 </p>
                                 <p>
-                                    <label for="password">Пароль:</label>
-                                    <input type="password" placeholder="Введите пароль" id="password" name="password" required />
-
-                                    <input type="submit" value="Отправить" />
+                                    <label htmlFor="password">Пароль:</label>
+                                    <input
+                                        type="password"
+                                        placeholder="Введите пароль"
+                                        id="password"
+                                        name="password"
+                                        value={password}
+                                        onChange={this.handleInputChange}
+                                        required
+                                    />
                                 </p>
+                                <input type="submit" value="Отправить" onClick={this.handleClickSubmit} />
                             </form>
                         </div>
                     );
@@ -269,14 +365,26 @@
             }
 
             class SelectBlock extends React.Component {
-                handleClickSubmit(event) {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        selectedValue: ''
+                    };
+                }
+
+                handleClickSubmit = (event) => {
                     event.preventDefault(); // Предотвращаем отправку формы
 
-                    // Получаем выбранное значение селекта
-                    const selectedValue = event.target.elements.subject.value;
+                    // Получаем выбранное значение селекта из состояния
+                    const { selectedValue } = this.state;
 
                     // Выводим выбранное значение в alert
                     alert(`Выбрано: ${selectedValue}`);
+                }
+
+                handleSelectChange = (event) => {
+                    const selectedValue = event.target.value;
+                    this.setState({ selectedValue });
                 }
 
                 render() {
@@ -287,21 +395,23 @@
                         { id: '4', label: 'C# T1000' }
                     ];
 
-                    const selectOptions = options.map(option => (
+                    const selectOptions = options.map((option) => (
                         <option key={option.id} value={option.label}>
                             {option.label}
                         </option>
                     ));
 
+                    const { selectedValue } = this.state;
+
                     return (
-                        <div class="column">
-                            <form onSubmit={this.handleClickSubmit}>
-                                <legend for="subject">Выберете лучший язык программирования</legend>
-                                <select id="subject" name="subject">
+                        <div className="column">
+                            <form>
+                                <label htmlFor="subject">Выберете лучший язык программирования</label>
+                                <select id="subject" name="subject" value={selectedValue} onChange={this.handleSelectChange}>
                                     {selectOptions}
                                 </select>
                                 <p>
-                                    <input type="submit" value="Отправить" />
+                                    <input type="submit" value="Отправить" onClick={this.handleClickSubmit} />
                                 </p>
                             </form>
                         </div>
@@ -310,42 +420,48 @@
             }
 
             class GetCurrencyBlock extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        USD: '',
+                        EUR: ''
+                    };
+                }
 
                 handleClickSubmit = async (event) => {
                     event.preventDefault();
-
-                    const USDInput = document.getElementById('USD');
-                    const EURInput = document.getElementById('EUR');
 
                     try {
                         const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');
                         const data = await response.json();
 
-                        const USDRate = data.Valute.USD.Value;
-                        const EURRate = data.Valute.EUR.Value;
+                        const USDRate = data.Valute.USD.Value.toFixed(2);
+                        const EURRate = data.Valute.EUR.Value.toFixed(2);
 
-                        USDInput.value = USDRate.toFixed(2);
-                        EURInput.value = EURRate.toFixed(2);
+                        this.setState({ USD: USDRate, EUR: EURRate });
                     } catch (error) {
                         console.log('Ошибка при получении курсов валют:', error);
                     }
                 }
+
                 render() {
+                    const { USD, EUR } = this.state;
+
                     return (
                         <div className="row">
                             <fieldset>
                                 <legend>Узнать курсы валют</legend>
-                                <form onSubmit={this.handleClickSubmit}>
+                                <form>
                                     <div>
                                         <label>USD</label>
-                                        <input type="text" id="USD" />
+                                        <input type="text" id="USD" value={USD} readOnly />
                                     </div>
                                     <div>
                                         <label>EUR</label>
-                                        <input type="text" id="EUR" />
+                                        <input type="text" id="EUR" value={EUR} readOnly />
                                     </div>
                                     <p>
-                                        <input type="submit" value="Узнать" />
+                                        <input type="submit" value="Узнать" onClick={this.handleClickSubmit} />
                                     </p>
                                 </form>
                             </fieldset>
@@ -355,13 +471,18 @@
             }
 
             class GetCryptoCurrencyBlock extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        bitcoin: '',
+                        ethereum: '',
+                        tether: '',
+                        dogecoin: ''
+                    };
+                }
+
                 handleClickSubmit = async (event) => {
                     event.preventDefault();
-
-                    const btcValue = document.getElementById('bitcoin');
-                    const dogeValue = document.getElementById('dogecoin');
-                    const ethValue = document.getElementById('ethereum');
-                    const usdtValue = document.getElementById('tether');
 
                     try {
                         const response = await fetch('https://api.coincap.io/v2/assets?ids=bitcoin,dogecoin,ethereum,tether');
@@ -371,17 +492,18 @@
                         console.log(currencies);
                         currencies.forEach((currency) => {
                             const { id, priceUsd } = currency;
-                            const inputValue = document.getElementById(id);
-                            if (inputValue) {
-                                inputValue.value = priceUsd;
+                            if (this.state.hasOwnProperty(id)) {
+                                this.setState({ [id]: priceUsd });
                             }
                         });
-
                     } catch (error) {
                         console.log('Ошибка при получении данных:', error);
                     }
                 }
+
                 render() {
+                    const { bitcoin, ethereum, tether, dogecoin } = this.state;
+
                     const currencies = [
                         { id: 'bitcoin', label: 'BTC' },
                         { id: 'ethereum', label: 'Etherium' },
@@ -392,17 +514,18 @@
                     const currencyItems = currencies.map((currency) => (
                         <div key={currency.id}>
                             <label>{currency.label}</label>
-                            <input type="text" id={currency.id} />
+                            <input type="text" id={currency.id} value={this.state[currency.id]} readOnly />
                         </div>
                     ));
+
                     return (
                         <div className="row">
                             <fieldset>
                                 <legend>Узнать курс криптовалют (в USD)</legend>
-                                <form onSubmit={this.handleClickSubmit}>
+                                <form>
                                     {currencyItems}
                                     <p>
-                                        <input type="submit" value="Узнать" />
+                                        <input type="submit" value="Узнать" onClick={this.handleClickSubmit} />
                                     </p>
                                 </form>
                             </fieldset>
@@ -412,18 +535,26 @@
             }
 
             class GetChessLeaderboardBlock extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        leaderboardText: ''
+                    };
+                }
 
                 handleClickSubmit = async (event) => {
                     event.preventDefault();
-                    const chessLeaderboardTextarea = document.getElementById('chessLeaderboard');
+
                     try {
                         const response = await fetch('https://api.chess.com/pub/leaderboards');
                         const data = await response.json();
 
                         if (data.daily) {
+                            let leaderboardText = '';
                             for (let user in data.daily) {
-                                chessLeaderboardTextarea.value += data.daily[user].username + " : " + data.daily[user].score + "\n"
+                                leaderboardText += data.daily[user].username + " : " + data.daily[user].score + "\n";
                             }
+                            this.setState({ leaderboardText });
                         } else {
                             console.log('Поле "daily" не найдено в ответе');
                         }
@@ -433,14 +564,16 @@
                 }
 
                 render() {
+                    const { leaderboardText } = this.state;
+
                     return (
                         <div className="row">
                             <fieldset>
                                 <legend>Узнать рейтинг шахматистов</legend>
-                                <form onSubmit={this.handleClickSubmit}>
+                                <form>
                                     <div>
-                                        <textarea id="chessLeaderboard"></textarea>
-                                        <input type="submit" value="Узнать" />
+                                        <textarea id="chessLeaderboard" value={leaderboardText} readOnly></textarea>
+                                        <input type="submit" value="Узнать" onClick={this.handleClickSubmit} />
                                     </div>
                                 </form>
                             </fieldset>
